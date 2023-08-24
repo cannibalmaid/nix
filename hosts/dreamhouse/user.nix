@@ -2,7 +2,7 @@
 
 {
   imports = [
-    outputs.homeManagerModules.linux-discord-rich-presence
+    outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
   ];
 
