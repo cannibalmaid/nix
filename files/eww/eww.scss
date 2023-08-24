@@ -1,0 +1,37 @@
+* {
+  all: unset;
+  transition: 200ms;
+}
+
+$bg: #1e1e2e;
+$bg-alt: #313244;
+$fg: #cdd6f4;
+$fg-alt: #bac2de;
+$black: #45475a;
+$gray: #4c4c4c;
+$red: #f38ba8;
+$green: #a6e3a1;
+$yellow: #f9e2af;
+$blue: #89b4fa;
+$pink: #f5c2e7;
+$magenta: #f5c2e7;
+$cyan: #74c7ec;
+$white: $fg;
+
+tooltip {
+  font-family: "SpaceMono Nerd Font";
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: $fg;
+  background-color: $bg;
+  border: 3px solid $bg;
+  border-radius: .5rem;
+}
+
+@import "scss/bar.scss";
+@import "scss/notifications.scss";
+@import "scss/menu.scss";
+@import "scss/volume.scss";
+@import "scss/player.scss";
+@import "scss/powermenu.scss";
+@import "scss/dash.scss";

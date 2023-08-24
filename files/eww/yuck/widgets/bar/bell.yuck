@@ -1,0 +1,41 @@
+(defvar notifications_rev false)
+
+(defwidget bell []
+  (eventbox 
+    :onhover "eww update notifications_rev=true" 
+    :onhoverlost "eww update notifications_rev=false"
+    :halign "center"
+    (box
+      :class "bell"
+      :space-evenly false
+      :orientation "v"
+      (revealer 
+        :transition "slideup" 
+        :reveal notifications_rev 
+        (label 
+          :class "updates total" 
+          :text count
+        )
+      )
+      (eventbox
+        :cursor "pointer"
+        :halign "center"
+        (overlay 
+          (button
+            :class "bell icon"
+            :onclick "scripts/window/notifications"
+            :style {count > 0 ? "color: #cacaca;" : "color: #767676;"}
+            :tooltip "Notifications"
+            {dnd ? "" : ""}
+          )
+          (label
+            :class "bell indicator"
+            :visible {count > 0 ? true : false}
+            :valign "start" :halign "end" 
+            :text ""
+          )
+        )
+      )
+    )
+  )
+)

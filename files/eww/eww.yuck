@@ -1,0 +1,23 @@
+(defvar image       `/home/mia/.face`)
+(defvar music_rev   false)
+(defvar volume_rev  false)
+(defvar updates_rev false)
+
+(defpoll date :interval "1h" :initial `{"day": "1", "month": "1", "year": "1"}` 
+  `date +'{"day": "%d", "month": "%m", "year": "%Y"}'`)
+
+(defpoll count            :interval "1s" :initial 0 `scripts/notifications --count`)
+(defpoll waiting          :interval "1s" :initial 0 `dunstctl count waiting`)
+(defpoll dnd              :interval "1s" :initial false `dunstctl is-paused`)
+
+(deflisten volume         `scripts/volume`)
+(deflisten music          `scripts/media`)
+(deflisten hyprland       `scripts/workspaces`)
+(deflisten notifications  `scripts/notifications --sub`)
+(deflisten network        `scripts/network`)
+(deflisten weather        `scripts/weather`)
+(deflisten details        `scripts/details`)
+(deflisten artUrl         `playerctl -F metadata -f {{mpris:artUrl}}`)
+
+(include "yuck/widgets.yuck")
+(include "yuck/windows.yuck")

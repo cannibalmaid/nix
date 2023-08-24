@@ -1,0 +1,12 @@
+(defwidget launcher  []
+  (eventbox
+    :cursor "pointer"
+    :halign "center"
+    (button 
+      :class "launcher" 
+      :valign "start"
+      :onclick "scripts/window/launcher" 
+      ""
+    )
+  )
+)

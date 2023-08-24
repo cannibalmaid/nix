@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+KEY=56bfec39d45f284396f7e099cf4d150e
+ID='4832554'
+UNIT='metric'
+
+while true; do
+  WEATHER=$(curl -sf "http://api.openweathermap.org/data/2.5/weather?APPID=$KEY&id=$ID&units=$UNIT")
+
+  DESC=$(echo "$WEATHER" | jq -r ".weather[0].main")
+  TEMP=$(echo "$WEATHER" | jq ".main.temp" | cut -d "." -f 1)
+  ICON_CODE=$(echo "$WEATHER" | jq -r ".weather[].icon" | head -1)
+  FEELS=$(echo "$WEATHER" | jq ".main.feels_like" | cut -d "." -f 1)
+  HUMIDITY=$(echo "$WEATHER" | jq ".main.humidity" | cut -d "." -f 1)
+  CITY=$(echo "$WEATHER" | jq ".name" | tr -d '"')
+  ICON=""
+  COLOR=""
+
+  case $ICON_CODE in
+  "01d")
+    ICON=""
+    COLOR="#c6a679"
+    ;;
+  "01n")
+    ICON=""
+    COLOR="#9ec3c4"
+    ;;
+  "02d")
+    ICON=""
+    COLOR="#ceb188"
+    ;;
+  "02n")
+    ICON=""
+    COLOR="#8aabac"
+    ;;
+  "03d")
+    ICON=""
+    COLOR="#cacaca"
+    ;;
+  "03n")
+    ICON=""
+    COLOR="#cacaca"
+    ;;
+  "04d")
+    ICON=""
+    COLOR="#cacaca"
+    ;;
+  "04n")
+    ICON=""
+    COLOR="#4c4c4c"
+    ;;
+  "09d")
+    ICON=""
+    COLOR="#a39ec4"
+    ;;
+  "09n")
+    ICON=""
+    COLOR="#a39ec4"
+    ;;
+  "10d")
+    ICON=""
+    COLOR="#9ec3c4"
+    ;;
+  "10n")
+    ICON=""
+    COLOR="#9ec3c4"
+    ;;
+  "11d")
+    ICON=""
+    COLOR="#ceb188"
+    ;;
+  "11n")
+    ICON=""
+    COLOR="#ceb188"
+    ;;
+  "13d")
+    ICON=""
+    COLOR="#cacaca"
+    ;;
+  "13n")
+    ICON=""
+    COLOR="#cacaca"
+    ;;
+  "40d")
+    ICON="󰖑"
+    COLOR="#9ec3c4"
+    ;;
+  "40n")
+    ICON="󰖑"
+    COLOR="#9ec3c4"
+    ;;
+  *)
+    ICON=""
+    COLOR="#4c4c4c"
+    ;;
+  esac
+
+  echo '{"temp": "'$TEMP'", "feels": "'$FEELS'", "humidity": "'$HUMIDITY'", "desc": "'$DESC'", "icon": "'$ICON.'", "color": "'$COLOR'", "city": "'$CITY'"}'
+
+  sleep 1800
+done
+
+
+

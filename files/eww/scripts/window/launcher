@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+pkill wofi || wofi --allow-markup --no-actions --allow-images --insensitive --cache-file=/dev/null --parse-search --height=40% --prompt="Say something"
