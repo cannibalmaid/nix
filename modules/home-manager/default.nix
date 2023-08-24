@@ -4,7 +4,7 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
-  linux-discord-rich-presence = import ./linux-discord-rich-presence.nix;
+  presence = import ./linux-discord-rich-presence.nix;
   arrpc = import ./arrpc.nix;
   hyprland = import ./hyprland;
 }
