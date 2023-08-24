@@ -2,7 +2,13 @@
   description = "My Home Manager Flake";
 
   inputs = {
+    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # You can access packages and modules from different nixpkgs revs
+    # at the same time. Here's an working example:
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+
     hyprland.url = "github:hyprwm/Hyprland";
     rust-overlay.url = "github:oxalica/rust-overlay";
     impermanence.url = "github:nix-community/impermanence";
