@@ -32,6 +32,6 @@
 
   # enable hyprland
   wayland.windowManager.hyprland.enable = true;
-  # wayland.windowManager.hyprland.enableNvidiaPatches = true;
+  #wayland.windowManager.hyprland.enableNvidiaPatches = true;
   #services.xserver.displayManager.sessionPackages = [ ''wayland.windowManager.hyprland.package'' ];
 }
