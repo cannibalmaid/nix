@@ -8,6 +8,11 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
+    steam = prev.steam.override ({ extraPkgs ? pkgs': [ ], ... }: {
+      extraPkgs = pkgs': (extraPkgs pkgs') ++ (with pkgs'; [
+        libgdiplus
+      ]);
+    });
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });

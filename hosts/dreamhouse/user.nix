@@ -4,6 +4,8 @@
   imports = [
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
+
+    ../../modules/home-manager/hyprland
   ];
 
   home = {
@@ -42,7 +44,7 @@
       wofi
       gnome.nautilus
       swww
-      eww-wayland
+      unstable.eww-wayland
       socat
       jq
       procps
@@ -76,7 +78,7 @@
     };
 
     cursorTheme = {
-      name = "Qogir Recolored Catppuccin Pink";
+      name = "Qogir-Recolored-Catppuccin-Pink";
       size = 24;
     };
 
@@ -84,7 +86,6 @@
       gtk-application-prefer-dark-theme = 1;
     };
   };
-
 
   manual = {
     html.enable = false;

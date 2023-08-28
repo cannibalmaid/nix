@@ -5,7 +5,11 @@
 , lib
 , ...
 }: {
-  # imports = [./config.nix];
+
+  imports = [
+    ./config.nix
+    inputs.hyprland.homeManagerModules.default
+  ];
 
   home.packages = with pkgs; [
     seatd
@@ -23,7 +27,7 @@
     pulseaudio
     playerctl
     ripgrep
-    # inputs'.hyprland-contrib.packages.grimblast
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     # self'.packages.xwaylandvideobridge
   ];
 
@@ -32,6 +36,15 @@
 
   # enable hyprland
   wayland.windowManager.hyprland.enable = true;
-  #wayland.windowManager.hyprland.enableNvidiaPatches = true;
+  wayland.windowManager.hyprland.enableNvidiaPatches = true;
+
+  # xdg.configFile.hyprland.test = {
+  #   source = ./files/hyprland;
+  #   recursive = true;
+  # };
+
+  xdg.configFile."hyprlandgay".source = ../../../files/hyprland;
+
+
   #services.xserver.displayManager.sessionPackages = [ ''wayland.windowManager.hyprland.package'' ];
 }

@@ -6,6 +6,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.supportedFilesystems = [ "btrfs" ];
   boot.extraModulePackages = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
 
   fileSystems."/" =
     {
