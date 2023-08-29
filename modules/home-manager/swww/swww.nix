@@ -3,16 +3,16 @@
 with lib;
 
 let
-  cfg = config.services.arrpc;
+  cfg = config.services.swww;
 in
 {
-  options.services.arrpc = {
+  options.services.swww = {
     enable = mkEnableOption "swww";
   };
 
   config = mkIf cfg.enable {
     systemd.user.services = {
-      arrpc = {
+      swww = {
         Unit = {
           Description = "Wayland wallpaper";
         };
@@ -20,7 +20,7 @@ in
         Install.WantedBy = [ "hyprland-session.target" ];
 
         Service = {
-          ExecStart = ''${pkgs.swww}/bin/swww init'';
+          ExecStart = ''${pkgs.swww}/bin/swww-daemon'';
           Restart = "always";
         };
       };
