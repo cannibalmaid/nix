@@ -4,6 +4,7 @@
   imports = [
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
+    outputs.homeManagerModules.swww
   ];
 
   home = {
@@ -29,6 +30,8 @@
 
   services.arrpc.enable = true;
   services.linux-discord-rich-presence.enable = true;
+  services.swww.enable = true;
+
 
   gtk = {
     enable = true;
@@ -52,35 +55,6 @@
       gtk-application-prefer-dark-theme = 1;
     };
   };
-
-  qtTheme = {
-    name = "Catppuccin-Mocha-Mauve";
-    package = pkgs.catppuccin-kvantum.override {
-      variant = "Mocha";
-      accent = "Mauve";
-    };
-  };
-
-  fonts = {
-    default = {
-      name = "SpaceMono Nerd Font";
-      size = "12";
-    };
-    # iconFont = {
-    #   name = "Liga SFMono Nerd Font";
-    #   package = pkgs.sf-pro-fonts;
-    # };
-    # monospace = {
-    #   name = "MesloLGSDZ Nerd Font Mono";
-    #   package = pkgs.nerdfonts.override { fonts = [ "Meslo" ]; };
-    # };
-    # emoji = {
-    #   name = "Joypixels";
-    #   package = pkgs.joypixels;
-    # };
-  };
-
-
 
   manual = {
     html.enable = false;

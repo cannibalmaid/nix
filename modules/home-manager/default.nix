@@ -6,5 +6,6 @@
   # my-module = import ./my-module.nix;
   presence = import ./linux-discord-rich-presence.nix;
   arrpc = import ./arrpc.nix;
+  swww = import ./swww/swww.nix;
   hyprland = import ./hyprland;
 }

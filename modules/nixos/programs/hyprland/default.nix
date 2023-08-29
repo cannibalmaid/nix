@@ -25,6 +25,8 @@
     ];
 
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
+
+    xdg.configFile."hyprlandgay".source = ./config;
   };
 
   programs.hyprland = {
@@ -46,8 +48,6 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
-
-  xdg.configFile."hyprlandgay".source = ./config;
 
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
