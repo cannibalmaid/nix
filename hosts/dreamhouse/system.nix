@@ -8,8 +8,10 @@
     ../../modules/nixos/fonts
     ../../modules/nixos/networking
     ../../modules/nixos/nix
+    ../../modules/nixos/shell
 
     ../../modules/nixos/programs/hyprland
+    ../../modules/nixos/programs/gaming
   ];
 
   #  ██▓███   ██▓ ██▓███  ▓█████  █     █░ ██▓ ██▀███  ▓█████
@@ -34,6 +36,42 @@
     pulse.enable = true;
     jack.enable = false;
   };
+
+  environment.etc =
+    let
+      json = pkgs.formats.json { };
+    in
+    {
+      "pipewire/pipewire-pulse.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
+        context.modules = [
+          {
+            name = "libpipewire-module-protocol-pulse";
+            args = {
+              pulse.min.req = "32/48000";
+              pulse.default.req = "32/48000";
+              pulse.max.req = "32/48000";
+              pulse.min.quantum = "32/48000";
+              pulse.max.quantum = "32/48000";
+            };
+          }
+        ];
+        stream.properties = {
+          node.latency = "32/48000";
+          resample.quality = 1;
+        };
+      };
+
+      "pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
+        context.properties = {
+          default.clock.rate = 48000
+          default.clock.quantum = 32
+          default.clock.min-quantum = 32
+          default.clock.max-quantum = 32
+        }
+      '';
+
+    };
+
 
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
   # ▒██    ▒ ▒██  ██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██▒▀█▀ ██▒   ▓██░  ██▒▒████▄    ▒██▀ ▀█   ██▄█▒▒████▄     ██▒ ▀█▒▓█   ▀ ▒██    ▒
@@ -64,35 +102,13 @@
 
     xorg.xhost
 
-    steamtinkerlaunch
-    unzip
-    xdotool
-    xorg.xwininfo
-    unixtools.xxd
-    protonup-qt
-
     nixpkgs-fmt
     nvd
   ];
 
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-  programs.gamemode.enable = true;
-  programs.gamescope.capSysNice = true;
   programs.dconf.enable = true;
 
   nix.settings.auto-optimise-store = true;
-
-  # programs.hyprland = {
-  #   enable = true;
-  #   package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  # };
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
 
 
 
@@ -110,41 +126,14 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = false;
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  services.xserver.displayManager.sddm.enable = false;
   services.xserver.desktopManager.kodi.enable = true;
-  security.polkit.enable = true;
-  services.gvfs.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
 
   services.flatpak.enable = true;
-  services.xserver.enable = true;
 
   services.upower.enable = true;
   powerManagement = {
     enable = true;
     cpuFreqGovernor = "ondemand";
-  };
-
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
   };
 
   #   ▒█████   ██▒   █▓▓█████  ██▀███   ██▓    ▄▄▄     ▓██   ██▓  ██████
@@ -200,11 +189,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     hashedPassword = "$6$3MUfKpf9tTbjwOmi$W5YLaW3rOb.B2pnbFHAumdgRl1IcA4qept0S9yTsADEqitSqjZYB9vXJ4TSKhO6CSII8xLsnIcc73BvF3szhF1";
-  };
-
-  environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
   };
 
   system.activationScripts.report-changes = ''

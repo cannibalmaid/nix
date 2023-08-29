@@ -29,6 +29,9 @@
     ripgrep
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     wtype
+    swayosd
+    libnotify
+
   ];
 
   # start swayidle as part of hyprland, not sway
@@ -44,7 +47,6 @@
   # };
 
   xdg.configFile."hyprlandgay".source = ../../../files/hyprland;
-
 
   #services.xserver.displayManager.sessionPackages = [ ''wayland.windowManager.hyprland.package'' ];
 }

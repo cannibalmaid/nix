@@ -15,11 +15,9 @@ in
       linux-discord-rich-presence = {
         Unit = {
           Description = "Run Discord rich presence.";
-          After = [ "graphical-session.target" ];
-          PartOf = [ "graphical-session.target" ];
         };
 
-        Install.WantedBy = [ "graphical-session.target" ];
+        Install.WantedBy = [ "hyprland-session.target" ];
 
         Service = {
           ExecStart = ''${pkgs.presence}/bin/linux-discord-rich-presence --config /home/mia/.config/home-manager/pkgs/linux-discord-rich-presence/config.sh'';

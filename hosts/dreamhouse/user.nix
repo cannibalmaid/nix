@@ -4,8 +4,6 @@
   imports = [
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
-
-    #../../modules/home-manager/hyprland
   ];
 
   home = {
@@ -14,7 +12,6 @@
     packages = with pkgs; [
       librewolf
       neovim
-      lutris
       (webcord-vencord.overrideAttrs (oldAttrs: {
         buildInputs = oldAttrs.buildInputs or [ ] ++ [ pkgs.makeWrapper ];
         postInstall = oldAttrs.postInstall or "" + ''
@@ -24,40 +21,9 @@
       }))
       wezterm
       vscodium
-      kitty
       kodi-wayland
-      swayosd
-      libnotify
-      grim
-      slurp
       gopass
-      discord-canary
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-
-      itch
-
-
-      seatd
-      jaq
-      xorg.xprop
-      dunst
-      wofi
-      gnome.nautilus
-      swww
-      #unstable.eww-wayland
-      socat
-      jq
-      procps
-      pamixer
-      pulseaudio
-      playerctl
-      ripgrep
-
-      killall
-
       gnome-text-editor
-
-      heroic
     ];
   };
 
@@ -86,6 +52,35 @@
       gtk-application-prefer-dark-theme = 1;
     };
   };
+
+  qtTheme = {
+    name = "Catppuccin-Mocha-Mauve";
+    package = pkgs.catppuccin-kvantum.override {
+      variant = "Mocha";
+      accent = "Mauve";
+    };
+  };
+
+  fonts = {
+    default = {
+      name = "SpaceMono Nerd Font";
+      size = "12";
+    };
+    # iconFont = {
+    #   name = "Liga SFMono Nerd Font";
+    #   package = pkgs.sf-pro-fonts;
+    # };
+    # monospace = {
+    #   name = "MesloLGSDZ Nerd Font Mono";
+    #   package = pkgs.nerdfonts.override { fonts = [ "Meslo" ]; };
+    # };
+    # emoji = {
+    #   name = "Joypixels";
+    #   package = pkgs.joypixels;
+    # };
+  };
+
+
 
   manual = {
     html.enable = false;
