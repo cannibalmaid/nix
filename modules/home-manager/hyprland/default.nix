@@ -19,7 +19,7 @@
     wofi
     gnome.nautilus
     swww
-    eww-wayland
+    unstable.eww-wayland
     socat
     jq
     procps
@@ -28,7 +28,7 @@
     playerctl
     ripgrep
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-    # self'.packages.xwaylandvideobridge
+    wtype
   ];
 
   # start swayidle as part of hyprland, not sway

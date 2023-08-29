@@ -5,7 +5,7 @@
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
 
-    ../../modules/home-manager/hyprland
+    #../../modules/home-manager/hyprland
   ];
 
   home = {
@@ -44,7 +44,7 @@
       wofi
       gnome.nautilus
       swww
-      unstable.eww-wayland
+      #unstable.eww-wayland
       socat
       jq
       procps

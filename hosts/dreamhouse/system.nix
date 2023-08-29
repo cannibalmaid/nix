@@ -8,6 +8,8 @@
     ../../modules/nixos/fonts
     ../../modules/nixos/networking
     ../../modules/nixos/nix
+
+    ../../modules/nixos/programs/hyprland
   ];
 
   #  ██▓███   ██▓ ██▓███  ▓█████  █     █░ ██▓ ██▀███  ▓█████
