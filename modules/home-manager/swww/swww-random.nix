@@ -3,8 +3,9 @@
 with lib;
 
 let
-  cfg = config.services.swww-random
-  ;
+  cfg = config.services.swww-random;
+  shell = ''find "/home/ammy/.config/home-manager/files/wallpapers" -type f | shuf -n 1'';
+
 in
 {
   options.services.swww-random = {
@@ -14,7 +15,7 @@ in
   config = mkIf cfg.enable {
 
     systemd.user.timers."swww-random-timer" = {
-      wantedBy = [ "timers.target" ];
+      # wantedBy = [ "timers.target" ];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";
@@ -29,10 +30,10 @@ in
           Description = "Wayland wallpaper";
         };
 
-        Install.WantedBy = [ "hyprland-session.target" ];
+        #Install.WantedBy = [ "hyprland-session.target" ];
 
         Service = {
-          ExecStart = ''${pkgs.swww}/bin/swww img $(find "./files/wallpapers" - type f | shuf - n 1)'';
+          ExecStart = ''${pkgs.swww}/bin/swww img "/home/ammy/.config/home-manager/files/wallpapers/pink.png"'';
           Restart = "always";
         };
       };

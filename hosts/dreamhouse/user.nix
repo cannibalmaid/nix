@@ -5,32 +5,43 @@
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
     outputs.homeManagerModules.swww
+    outputs.homeManagerModules.swww-random
+
   ];
 
   home = {
     homeDirectory = "/home/ammy";
 
     packages = with pkgs; [
-      librewolf
-      neovim
-      (webcord-vencord.overrideAttrs (oldAttrs: {
+      unstable.librewolf
+      unstable.neovim
+      (unstable.webcord-vencord.overrideAttrs (oldAttrs: {
         buildInputs = oldAttrs.buildInputs or [ ] ++ [ pkgs.makeWrapper ];
         postInstall = oldAttrs.postInstall or "" + ''
           wrapProgram $out/bin/webcord \
           --add-flags "--ozone-platform-hint=auto"
         '';
       }))
-      wezterm
-      vscodium
-      kodi-wayland
+      unstable.wezterm
+      unstable.vscodium
+      unstable.kodi-wayland
       gopass
       gnome-text-editor
+
+      gnome.file-roller
+      rar
+
+      unstable.winetricks
+      gnome.zenity
+
     ];
   };
 
   services.arrpc.enable = true;
   services.linux-discord-rich-presence.enable = true;
   services.swww.enable = true;
+  services.swww-random.enable = true;
+
 
 
   gtk = {

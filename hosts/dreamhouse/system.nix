@@ -37,40 +37,40 @@
     jack.enable = false;
   };
 
-  environment.etc =
-    let
-      json = pkgs.formats.json { };
-    in
-    {
-      "pipewire/pipewire-pulse.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
-        context.modules = [
-          {
-            name = "libpipewire-module-protocol-pulse";
-            args = {
-              pulse.min.req = "32/48000";
-              pulse.default.req = "32/48000";
-              pulse.max.req = "32/48000";
-              pulse.min.quantum = "32/48000";
-              pulse.max.quantum = "32/48000";
-            };
-          }
-        ];
-        stream.properties = {
-          node.latency = "32/48000";
-          resample.quality = 1;
-        };
-      };
+  # environment.etc =
+  #   let
+  #     json = pkgs.formats.json { };
+  #   in
+  #   {
+  #     "pipewire/pipewire-pulse.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
+  #       context.modules = [
+  #         {
+  #           name = "libpipewire-module-protocol-pulse";
+  #           args = {
+  #             pulse.min.req = "32/48000";
+  #             pulse.default.req = "32/48000";
+  #             pulse.max.req = "32/48000";
+  #             pulse.min.quantum = "32/48000";
+  #             pulse.max.quantum = "32/48000";
+  #           };
+  #         }
+  #       ];
+  #       stream.properties = {
+  #         node.latency = "32/48000";
+  #         resample.quality = 1;
+  #       };
+  #     };
 
-      "pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
-        context.properties = {
-          default.clock.rate = 48000
-          default.clock.quantum = 32
-          default.clock.min-quantum = 32
-          default.clock.max-quantum = 32
-        }
-      '';
+  #     "pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
+  #       context.properties = {
+  #         default.clock.rate = 48000
+  #         default.clock.quantum = 32
+  #         default.clock.min-quantum = 32
+  #         default.clock.max-quantum = 32
+  #       }
+  #     '';
 
-    };
+  #   };
 
 
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
@@ -89,16 +89,15 @@
     wget
     git
     gnupg
-    gnome.gnome-software
-    gnome.gnome-terminal
     neofetch
     btop
 
-    spotify
+    unstable.spotify
 
-    easyeffects
+    unstable.easyeffects
 
-    wineWowPackages.waylandFull
+    # unstable.wineWowPackages.waylandFull
+    unstable.wineWowPackages.staging
 
     xorg.xhost
 
@@ -172,6 +171,7 @@
       permittedInsecurePackages = [
         "electron-11.5.0"
       ];
+
     };
   };
 

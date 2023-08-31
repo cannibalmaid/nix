@@ -14,6 +14,7 @@
 {
   # Use the systemd-boot EFI boot loader.
   boot.loader.efi.canTouchEfiVariables = false;
+  boot.kernelParams = [ "clearcpuid=514" ];
 
   boot.loader.grub = {
     enable = true;

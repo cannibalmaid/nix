@@ -26,7 +26,7 @@
 
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
 
-    xdg.configFile."hyprlandgay".source = ./config;
+    xdg.configFile."hypr".source = ./config;
   };
 
   programs.hyprland = {

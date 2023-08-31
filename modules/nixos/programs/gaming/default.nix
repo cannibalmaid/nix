@@ -2,18 +2,18 @@
 
   home-manager.users.ammy = {
     home.packages = with pkgs; [
-      heroic
+      unstable.heroic
       itch
-      lutris
-      protonup-qt
+      unstable.lutris
+      unstable.protonup-qt
 
-      steamtinkerlaunch
+      unstable.steamtinkerlaunch
       unzip
       xdotool
       xorg.xwininfo
       unixtools.xxd
 
-      gamescope
+      unstable.grapejuice
     ];
   };
 
