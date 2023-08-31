@@ -3,15 +3,16 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/grub
-    ../../modules/nixos/nvidia
-    ../../modules/nixos/persistence
+    #../../modules/nixos/nvidia
+    #../../modules/nixos/persistence
     ../../modules/nixos/fonts
     ../../modules/nixos/networking
     ../../modules/nixos/nix
     ../../modules/nixos/shell
 
     ../../modules/nixos/programs/hyprland
-    ../../modules/nixos/programs/gaming
+
+    #../../modules/nixos/programs/gaming
   ];
 
   #  ██▓███   ██▓ ██▓███  ▓█████  █     █░ ██▓ ██▀███  ▓█████
@@ -26,8 +27,8 @@
 
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = false;
-  hardware.opentabletdriver.enable = true;
-  hardware.steam-hardware.enable = true;
+  #hardware.opentabletdriver.enable = true;
+  #hardware.steam-hardware.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -71,7 +72,10 @@
   #     '';
 
   #   };
-networking.hostName = "dreamhouse";
+
+networking.hostName = "ken";
+
+services.xserver.desktopManager.gnome.enable = true;
 
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
   # ▒██    ▒ ▒██  ██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██▒▀█▀ ██▒   ▓██░  ██▒▒████▄    ▒██▀ ▀█   ██▄█▒▒████▄     ██▒ ▀█▒▓█   ▀ ▒██    ▒
@@ -195,6 +199,16 @@ networking.hostName = "dreamhouse";
     PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
     nvd diff $(ls -dv /nix/var/nix/profiles/system-*-link | tail -2)
   '';
+
+  nix.settings = {
+    trusted-substituters = [
+      "https://t2linux.cachix.org"
+    ];
+    trusted-public-keys = [
+      "t2linux.cachix.org-1:P733c5Gt1qTcxsm+Bae0renWnT8OLs0u9+yfaK2Bejw="
+    ];
+  };
+
 
 
   #  ██▒   █▓▓█████  ██▀███    ██████  ██▓ ▒█████   ███▄    █

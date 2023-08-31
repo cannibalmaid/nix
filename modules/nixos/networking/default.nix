@@ -7,7 +7,7 @@
     };
   };
 
-  networking.hostName = "dreamhouse";
+  #networking.hostName = "dreamhouse";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Detroit";

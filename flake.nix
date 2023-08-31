@@ -13,6 +13,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     rust-overlay.url = "github:oxalica/rust-overlay";
     impermanence.url = "github:nix-community/impermanence";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -31,12 +32,7 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , hyprland
-    , ...
-    } @ inputs:
+    { self, nixpkgs, home-manager, hyprland, nixos-hardware, ... } @ inputs:
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib;
@@ -89,6 +85,21 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs outputs; };
               home-manager.users.ammy = import ./hosts/dreamhouse/user.nix;
+            }
+          ];
+        };
+
+      ken = lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/ken/system.nix
+            nixos-hardware.nixosModules.apple-t2
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs outputs; };
+              home-manager.users.ammy = import ./hosts/ken/user.nix;
             }
           ];
         };
