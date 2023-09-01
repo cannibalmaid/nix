@@ -34,6 +34,9 @@
       unstable.winetricks
       gnome.zenity
 
+      unstable.qbittorrent
+      unstable.uget
+
     ];
   };
 
