@@ -8,6 +8,7 @@
     directories = [
       "/etc/nixos"
       "/etc/NetworkManager"
+      "/var/lib/AccountsService"
     ];
     files = [
       "/etc/machine-id"

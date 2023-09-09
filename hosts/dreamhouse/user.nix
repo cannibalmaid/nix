@@ -37,6 +37,8 @@
       unstable.qbittorrent
       unstable.uget
 
+      unstable.discord-canary
+      xwaylandvideobridge
     ];
   };
 

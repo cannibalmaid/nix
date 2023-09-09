@@ -1,4 +1,4 @@
-{ inputs, pkgs, home-manager, lib, ... }: {
+{ inputs, config, pkgs, home-manager, lib, ... }: {
 
   home-manager.users.ammy = {
     home.packages = with pkgs; [
@@ -24,7 +24,7 @@
 
     ];
 
-    systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
+    # systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
 
     xdg.configFile."hypr".source = ./config;
   };
@@ -49,8 +49,8 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
+  systemd.user = {
+    services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
       wantedBy = [ "graphical-session.target" ];
       wants = [ "graphical-session.target" ];
@@ -63,7 +63,14 @@
         TimeoutStopSec = 10;
       };
     };
-  };
 
+    targets."hyprland-session" = {
+      description = "Hyprland compositor session";
+      documentation = [ "man:systemd.special(7)" ];
+      bindsTo = [ "graphical-session.target" ];
+      wants = [ "graphical-session-pre.target" ];
+      after = [ "graphical-session-pre.target" ];
+    };
+  };
 
 }

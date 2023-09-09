@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, system, ... }:
 
 #  ███▄    █ ██▒   █▓ ██▓▓█████▄  ██▓ ▄▄▄      
 #  ██ ▀█   █▓██░   █▒▓██▒▒██▀ ██▌▓██▒▒████▄    
@@ -12,6 +12,7 @@
 #                ░        ░                    
 
 {
+
   # Make sure opengl is enabled
   hardware.opengl = {
     enable = true;
@@ -36,10 +37,10 @@
     open = false;
 
     # Enable the nvidia settings menu
-    nvidiaSettings = true;
+    nvidiaSettings = false;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   hardware.nvidia.powerManagement.enable = true;

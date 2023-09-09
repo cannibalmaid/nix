@@ -103,6 +103,21 @@
 
     nixpkgs-fmt
     nvd
+    gtk3
+    gobject-introspection
+
+    (python3.withPackages (ps: with ps; [ pandas requests dbus-python pygobject3 ]))
+
+    (runCommand "python-with-gtk"
+      {
+        buildInputs = [ gtk3 ];
+        nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+      } ''
+      mkdir -p $out/bin
+      cp ${python3.withPackages (p: [p.pygobject3 p.dbus-python])}/bin/python $out/bin/python-with-gtk
+      wrapGAppsHook
+    '')
+
   ];
 
   programs.dconf.enable = true;

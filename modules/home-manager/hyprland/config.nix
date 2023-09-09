@@ -23,6 +23,7 @@ in
       workspace=6,monitor:HDMI-A-1,default:true
       workspace=7,monitor:DP-2,default:true
   
+      exec-once=systemctl --user start hyprland-session.target
       exec-once=hyprctl setcursor "${pointer.name}" 24
       exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
       exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP

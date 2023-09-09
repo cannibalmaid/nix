@@ -15,12 +15,18 @@ in
   config = mkIf cfg.enable {
 
     systemd.user.timers."swww-random-timer" = {
-      # wantedBy = [ "timers.target" ];
-      timerConfig = {
+      Unit = {
+        Description = "Wayland wallpaper";
+      };
+
+      Timer = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";
         Unit = "swww-random.service";
+
       };
+
+      Install.WantedBy = [ "timers.target" ];
     };
 
 
@@ -33,10 +39,15 @@ in
         #Install.WantedBy = [ "hyprland-session.target" ];
 
         Service = {
-          ExecStart = ''${pkgs.swww}/bin/swww img "/home/ammy/.config/home-manager/files/wallpapers/pink.png"'';
+          #  ExecStart = ''${pkgs.swww}/bin/swww img "/home/ammy/.config/home-manager/files/wallpapers/pink.png"'';
+          ExecStart = ''
+            ${pkgs.bash}/bin/bash -c '${pkgs.swww}/bin/swww img "$(${pkgs.findutils}/bin/find "/home/ammy/.config/home-manager/files/wallpapers" -type f | ${pkgs.coreutils}/bin/shuf -n 1)"'
+          '';
           Restart = "always";
         };
       };
     };
   };
 }
+
+
