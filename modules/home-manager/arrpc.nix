@@ -18,9 +18,8 @@ in
         };
 
         Install.WantedBy = [ "hyprland-session.target" ];
-
         Service = {
-          ExecStart = ''${pkgs.arrpc}/bin/arRPC'';
+          ExecStart = ''${pkgs.steam-run}/bin/steam-run ${pkgs.arrpc}/bin/arRPC'';
           Restart = "always";
         };
       };

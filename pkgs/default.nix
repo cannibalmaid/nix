@@ -6,5 +6,6 @@
   arrpc = pkgs.callPackage ./arrpc { };
   alvr = pkgs.callPackage ./alvr { };
   grapejuice = pkgs.callPackage ./grapejuice { };
-  xwaylandvideobridge = pkgs.callPackage ./xwaylandvideobridge { };
+  xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge { };
+  obinskit = pkgs.callPackage ./obinskit {};
 }

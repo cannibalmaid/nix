@@ -11,6 +11,7 @@
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     hyprland.url = "github:hyprwm/Hyprland";
+    nix-gaming.url = "github:fufexan/nix-gaming";
     rust-overlay.url = "github:oxalica/rust-overlay";
     impermanence.url = "github:nix-community/impermanence";
 

@@ -21,10 +21,10 @@
       wtype
       swayosd
       libnotify
-
+      swayidle
     ];
 
-    # systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
+    systemd.user.services.swayidle.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
 
     xdg.configFile."hypr".source = ./config;
   };

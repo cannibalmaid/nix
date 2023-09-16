@@ -8,6 +8,7 @@
   boot.extraModulePackages = [ ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
+
   fileSystems."/" =
     {
       device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
@@ -100,5 +101,11 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.enableAllFirmware = true;
+
+  services = {
+    # for SSD/NVME
+    fstrim.enable = true;
+  };
+
 }
 
