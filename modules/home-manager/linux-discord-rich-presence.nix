@@ -20,7 +20,7 @@ in
         Install.WantedBy = [ "hyprland-session.target" ];
 
         Service = {
-          ExecStart = ''${pkgs.presence}/bin/linux-discord-rich-presence --config /home/mia/.config/home-manager/pkgs/linux-discord-rich-presence/config.sh'';
+          ExecStart = ''${pkgs.presence}/bin/linux-discord-rich-presence --config /home/ammy/.config/home-manager/pkgs/presence/config.sh'';
           Restart = "always";
         };
       };

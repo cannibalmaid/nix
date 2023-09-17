@@ -1,11 +1,28 @@
-{ ... }: {
+{ pkgs, ... }: {
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
+  hardware.bluetooth = {
+    enable = true;
+    package = pkgs.bluez5-experimental;
+    settings = {
+      # make Xbox Series X controller work
+      General = {
+        Class = "0x000100";
+        ControllerMode = "bredr";
+        FastConnectable = true;
+        JustWorksRepairing = "always";
+        Privacy = "device";
+        Experimental = true;
+      };
     };
   };
+
+  hardware.xpadneo.enable = true;
+
+
+
+  hardware.xpadneo.enable = true;
+
+
 
   #networking.hostName = "dreamhouse";
   networking.networkmanager.enable = true;

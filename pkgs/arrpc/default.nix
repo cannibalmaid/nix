@@ -1,9 +1,9 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildNpmPackage,
-  nodejs,
-  extraFlags ? [],
+{ lib
+, fetchFromGitHub
+, buildNpmPackage
+, nodejs
+, extraFlags ? [ ]
+, stdenv
 }:
 buildNpmPackage {
   pname = "arRPC";
@@ -42,6 +42,6 @@ buildNpmPackage {
     homepage = "https://github.com/OpenAsar/arRPC";
     changelog = "https://github.com/OpenAsar/arRPC/blob/${version}/changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [notashelf];
+    maintainers = with maintainers; [ notashelf ];
   };
 }

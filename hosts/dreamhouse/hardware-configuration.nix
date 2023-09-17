@@ -6,7 +6,8 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.supportedFilesystems = [ "btrfs" ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+
 
   fileSystems."/" =
     {
@@ -81,12 +82,12 @@
     };
 
 
-  fileSystems."/games/launchers/hhd" =
-    {
-      device = "/dev/disk/by-uuid/a88d71c5-4412-4435-9adf-7330b52571da";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" ];
-    };
+  # fileSystems."/games/launchers/hhd" =
+  #   {
+  #     device = "/dev/disk/by-uuid/a88d71c5-4412-4435-9adf-7330b52571da";
+  #     fsType = "btrfs";
+  #     options = [ "compress=zstd" "noatime" ];
+  #   };
 
 
   swapDevices = [{
@@ -100,5 +101,11 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   hardware.enableAllFirmware = true;
+
+  services = {
+    # for SSD/NVME
+    fstrim.enable = true;
+  };
+
 }
 

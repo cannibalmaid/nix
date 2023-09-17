@@ -13,6 +13,13 @@
         libgdiplus
       ]);
     });
+
+    discord-canary = prev.discord-canary.override {
+      withOpenASAR = true;
+      withVencord = true;
+
+    };
+
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
