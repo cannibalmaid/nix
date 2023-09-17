@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://annepro.s3.amazonaws.com/4-tar-gz.tar";
-    sha256 = "";
+    sha256 = "sha256-4jL9/0zvKEe0IbAcSQXuqoYGVX6VCAgI/NaQisN26RM=";
   };
 
-  unpackPhase = "tar -xzf $src";
+  unpackPhase = "tar -xf $src";
 
-  sourceRoot = "4-tar-gz";
+  sourceRoot = "ObinsKit_1.2.11_x64";
 
   nativeBuildInputs = [ makeWrapper ];
 

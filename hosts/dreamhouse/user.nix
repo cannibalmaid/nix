@@ -1,11 +1,24 @@
-{ inputs, outputs, lib, config, pkgs, ... }:
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, spicetify-nix
+, ...
+}:
 
+let
+  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+in
 {
   imports = [
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
     outputs.homeManagerModules.swww
     outputs.homeManagerModules.swww-random
+
+
+    inputs.spicetify-nix.homeManagerModule
   ];
 
   home = {
@@ -40,6 +53,19 @@
       obinskit
     ];
   };
+
+  programs.spicetify =
+    {
+      enable = true;
+      theme = spicePkgs.themes.catppuccin-mocha;
+      colorScheme = "flamingo";
+
+      enabledExtensions = with spicePkgs.extensions; [
+        fullAppDisplay
+        shuffle # shuffle+ (special characters are sanitized out of ext names)
+      ];
+    };
+
 
   services.arrpc.enable = true;
   # services.linux-discord-rich-presence.enable = true;
