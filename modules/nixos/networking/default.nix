@@ -20,7 +20,11 @@
 
 
 
-  networking.hostName = "dreamhouse";
+  hardware.xpadneo.enable = true;
+
+
+
+  #networking.hostName = "dreamhouse";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Detroit";
