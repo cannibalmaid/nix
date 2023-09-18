@@ -1,4 +1,10 @@
-{ inputs, pkgs, home-manager, lib, ... }: {
+{ inputs, pkgs, home-manager, lib, ... }:
+
+{
+  imports = [
+    inputs.aagl.nixosModules.default
+
+  ];
 
   home-manager.users.ammy = {
     home.packages = with pkgs; [
@@ -20,6 +26,7 @@
   programs.gamemode.enable = true;
   programs.gamescope.capSysNice = true;
 
+  programs.honkers-railway-launcher.enable = true;
 
   programs.steam = {
     enable = true;
