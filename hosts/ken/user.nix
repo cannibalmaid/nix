@@ -6,7 +6,7 @@
     outputs.homeManagerModules.arrpc
     outputs.homeManagerModules.swww
     outputs.homeManagerModules.swww-random
-
+    outputs.homeManagerModules.wallpapers
   ];
 
   home = {
