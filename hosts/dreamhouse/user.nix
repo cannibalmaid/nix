@@ -26,14 +26,6 @@ in
 
     packages = with pkgs; [
       unstable.librewolf
-      #unstable.neovim
-      # (unstable.webcord-vencord.overrideAttrs (oldAttrs: {
-      #   buildInputs = oldAttrs.buildInputs or [ ] ++ [ pkgs.makeWrapper ];
-      #   postInstall = oldAttrs.postInstall or "" + ''
-      #     wrapProgram $out/bin/webcord \
-      #     --add-flags "--ozone-platform-hint=auto"
-      #   '';
-      # }))
       unstable.webcord-vencord
       unstable.wezterm
       unstable.vscodium
@@ -50,7 +42,6 @@ in
       gnome.gnome-software
 
       pavucontrol
-      obinskit
     ];
   };
 

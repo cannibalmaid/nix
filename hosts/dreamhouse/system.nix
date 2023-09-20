@@ -39,12 +39,14 @@
 
     lowLatency = {
       # enable this module      
-      enable = true;
+      #enable = true;
     };
   };
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;
+
+  services.openssh.enable = true;
 
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
   # ▒██    ▒ ▒██  ██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██▒▀█▀ ██▒   ▓██░  ██▒▒████▄    ▒██▀ ▀█   ██▄█▒▒████▄     ██▒ ▀█▒▓█   ▀ ▒██    ▒
@@ -76,29 +78,11 @@
 
     nixpkgs-fmt
     nvd
-    gtk3
-    gobject-introspection
-
-    (python3.withPackages (ps: with ps; [ pandas requests dbus-python pygobject3 ]))
-
-    (runCommand "python-with-gtk"
-      {
-        buildInputs = [ gtk3 ];
-        nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
-      } ''
-      mkdir -p $out/bin
-      cp ${python3.withPackages (p: [p.pygobject3 p.dbus-python])}/bin/python $out/bin/python-with-gtk
-      wrapGAppsHook
-    '')
-
   ];
 
   programs.dconf.enable = true;
 
   nix.settings.auto-optimise-store = true;
-
-
-
 
   #   ██████ ▓█████  ██▀███   ██▒   █▓ ██▓ ▄████▄  ▓█████   ██████
   # ▒██    ▒ ▓█   ▀ ▓██ ▒ ██▒▓██░   █▒▓██▒▒██▀ ▀█  ▓█   ▀ ▒██    ▒
@@ -115,7 +99,6 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.kodi.enable = true;
   services.xserver.excludePackages = [ pkgs.xterm ];
-
 
   services.flatpak.enable = true;
 
@@ -137,22 +120,10 @@
   #               ░                                    ░ ░
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-
-      # You can also add overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -167,8 +138,6 @@
   };
 
   documentation.nixos.enable = false;
-
-
 
   users.mutableUsers = false;
   security.sudo.wheelNeedsPassword = false;

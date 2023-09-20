@@ -11,6 +11,12 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
     ];
+
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+
   };
 
 }

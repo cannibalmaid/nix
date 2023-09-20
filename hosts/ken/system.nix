@@ -13,6 +13,8 @@
     ../../modules/nixos/programs/hyprland
 
     #../../modules/nixos/programs/gaming
+
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
   ];
 
   #  ██▓███   ██▓ ██▓███  ▓█████  █     █░ ██▓ ██▀███  ▓█████
@@ -35,47 +37,18 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = false;
+
+    lowLatency = {
+      # enable this module      
+      enable = true;
+    };
   };
 
-  # environment.etc =
-  #   let
-  #     json = pkgs.formats.json { };
-  #   in
-  #   {
-  #     "pipewire/pipewire-pulse.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
-  #       context.modules = [
-  #         {
-  #           name = "libpipewire-module-protocol-pulse";
-  #           args = {
-  #             pulse.min.req = "32/48000";
-  #             pulse.default.req = "32/48000";
-  #             pulse.max.req = "32/48000";
-  #             pulse.min.quantum = "32/48000";
-  #             pulse.max.quantum = "32/48000";
-  #           };
-  #         }
-  #       ];
-  #       stream.properties = {
-  #         node.latency = "32/48000";
-  #         resample.quality = 1;
-  #       };
-  #     };
+  services.openssh.enable = true;
 
-  #     "pipewire/pipewire.conf.d/92-low-latency.conf".text = ''
-  #       context.properties = {
-  #         default.clock.rate = 48000
-  #         default.clock.quantum = 32
-  #         default.clock.min-quantum = 32
-  #         default.clock.max-quantum = 32
-  #       }
-  #     '';
+  networking.hostName = "ken";
 
-  #   };
-
-networking.hostName = "ken";
-
-#services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.gnome.enable = false;
 
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
   # ▒██    ▒ ▒██  ██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██▒▀█▀ ██▒   ▓██░  ██▒▒████▄    ▒██▀ ▀█   ██▄█▒▒████▄     ██▒ ▀█▒▓█   ▀ ▒██    ▒
@@ -130,6 +103,7 @@ networking.hostName = "ken";
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.kodi.enable = true;
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.flatpak.enable = true;
 
@@ -151,22 +125,10 @@ networking.hostName = "ken";
   #               ░                                    ░ ░
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-
-      # You can also add overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -174,11 +136,13 @@ networking.hostName = "ken";
       allowUnfreePredicate = (_: true);
       permittedInsecurePackages = [
         "electron-11.5.0"
+        "electron-13.6.9"
       ];
 
     };
   };
 
+  documentation.nixos.enable = false;
 
   users.mutableUsers = false;
   security.sudo.wheelNeedsPassword = false;
@@ -199,17 +163,6 @@ networking.hostName = "ken";
     PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
     nvd diff $(ls -dv /nix/var/nix/profiles/system-*-link | tail -2)
   '';
-
-  nix.settings = {
-    trusted-substituters = [
-      "https://t2linux.cachix.org"
-    ];
-    trusted-public-keys = [
-      "t2linux.cachix.org-1:P733c5Gt1qTcxsm+Bae0renWnT8OLs0u9+yfaK2Bejw="
-    ];
-  };
-
-
 
   #  ██▒   █▓▓█████  ██▀███    ██████  ██▓ ▒█████   ███▄    █
   # ▓██░   █▒▓█   ▀ ▓██ ▒ ██▒▒██    ▒ ▓██▒▒██▒  ██▒ ██ ▀█   █

@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, pkgs, ... }:
+{ inputs, outputs, lib, config, pkgs, spicetify-nix, ... }:
 
 {
   imports = [
@@ -14,14 +14,7 @@
 
     packages = with pkgs; [
       unstable.librewolf
-      unstable.neovim
-      (unstable.webcord-vencord.overrideAttrs (oldAttrs: {
-        buildInputs = oldAttrs.buildInputs or [ ] ++ [ pkgs.makeWrapper ];
-        postInstall = oldAttrs.postInstall or "" + ''
-          wrapProgram $out/bin/webcord \
-          --add-flags "--ozone-platform-hint=auto"
-        '';
-      }))
+      unstable.webcord-vencord
       unstable.wezterm
       unstable.vscodium
       unstable.kodi-wayland
@@ -31,18 +24,53 @@
       gnome.file-roller
       rar
 
-      unstable.winetricks
-      gnome.zenity
+      discord-canary
+      presence
 
+      gnome.gnome-software
+
+      pavucontrol
     ];
   };
 
   services.arrpc.enable = true;
-  services.linux-discord-rich-presence.enable = true;
+  #services.linux-discord-rich-presence.enable = true;
   services.swww.enable = true;
   services.swww-random.enable = true;
 
+  programs.neovim = {
+    enable = true;
+    extraConfig = ''
+      set number relativenumber
+    '';
+  };
 
+  xdg.desktopEntries = {
+    nvim = {
+      name = ".";
+      noDisplay = true;
+    };
+
+    "org.gnome.FileRoller" = {
+      name = ".";
+      noDisplay = true;
+    };
+
+    btop = {
+      name = ".";
+      noDisplay = true;
+    };
+
+    fish = {
+      name = ".";
+      noDisplay = true;
+    };
+
+    steamtinkerlaunch = {
+      name = ".";
+      noDisplay = true;
+    };
+  };
 
   gtk = {
     enable = true;

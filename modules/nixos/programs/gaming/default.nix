@@ -8,7 +8,7 @@
 
   home-manager.users.ammy = {
     home.packages = with pkgs; [
-      unstable.heroic
+      heroic
       itch
       unstable.lutris
       unstable.protonup-qt
