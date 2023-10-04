@@ -1,5 +1,10 @@
-{ inputs, outputs, config, pkgs, lib, ... }: {
-
+{ inputs
+, outputs
+, config
+, pkgs
+, lib
+, ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/grub
@@ -26,10 +31,10 @@
   # ░░        ▒ ░░░          ░     ░   ░   ▒ ░  ░░   ░    ░
   #           ░              ░  ░    ░     ░     ░        ░  ░
 
-  #security.rtkit.enable = true;
-  #hardware.pulseaudio.enable = false;
   hardware.opentabletdriver.enable = true;
   hardware.steam-hardware.enable = true;
+
+  hardware.pulseaudio.enable = false;
 
   services.pipewire = {
     enable = true;
@@ -38,8 +43,8 @@
     pulse.enable = true;
 
     lowLatency = {
-      # enable this module      
-      #enable = true;
+      # enable this module
+      enable = true;
     };
   };
 
@@ -60,7 +65,6 @@
   #          ░ ░                                                               ░
 
   environment.systemPackages = with pkgs; [
-    neovim
     wget
     git
     gnupg
@@ -71,10 +75,7 @@
 
     unstable.easyeffects
 
-    # unstable.wineWowPackages.waylandFull
     unstable.wineWowPackages.staging
-
-    xorg.xhost
 
     nixpkgs-fmt
     nvd
@@ -98,6 +99,8 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.kodi.enable = true;
+  services.xserver.desktopManager.gnome.enable = false;
+
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.flatpak.enable = true;
@@ -128,12 +131,11 @@
     # Configure your nixpkgs instance
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
       permittedInsecurePackages = [
         "electron-11.5.0"
         "electron-13.6.9"
       ];
-
     };
   };
 
@@ -155,10 +157,9 @@
   };
 
   system.activationScripts.report-changes = ''
-    PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
+    PATH=$PATH:${lib.makeBinPath [pkgs.nvd pkgs.nix]}
     nvd diff $(ls -dv /nix/var/nix/profiles/system-*-link | tail -2)
   '';
-
 
   #  ██▒   █▓▓█████  ██▀███    ██████  ██▓ ▒█████   ███▄    █
   # ▓██░   █▒▓█   ▀ ▓██ ▒ ██▒▒██    ▒ ▓██▒▒██▒  ██▒ ██ ▀█   █

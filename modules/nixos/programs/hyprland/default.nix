@@ -1,5 +1,10 @@
-{ inputs, config, pkgs, home-manager, lib, ... }: {
-
+{ inputs
+, config
+, pkgs
+, home-manager
+, lib
+, ...
+}: {
   home-manager.users.ammy = {
     home.packages = with pkgs; [
       seatd
@@ -39,7 +44,7 @@
   services.gvfs.enable = true;
   services.xserver.enable = true;
 
-  xdg.portal = {
+  xdg.portal = lib.mkDefault {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
@@ -47,6 +52,7 @@
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    WLR_DRM_NO_ATOMIC = "1";
   };
 
   systemd.user = {
@@ -72,5 +78,4 @@
       after = [ "graphical-session-pre.target" ];
     };
   };
-
 }

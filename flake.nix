@@ -33,6 +33,12 @@
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
     };
+
+    neovim-flake = {
+    url = "github:notashelf/neovim-flake";
+    # you can override input nixpkgs
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   };
 
   outputs =
