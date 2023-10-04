@@ -7,5 +7,5 @@
   grapejuice = pkgs.callPackage ./grapejuice { };
   xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge { };
   obinskit = pkgs.callPackage ./obinskit { };
-  fonts = pkgs.callPackage ./fonts { };
+  fonts = pkgs.callPackage ./customfonts { };
 }
