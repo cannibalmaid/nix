@@ -3,7 +3,6 @@
 {
   imports = [
     inputs.aagl.nixosModules.default
-
   ];
 
   home-manager.users.ammy = {

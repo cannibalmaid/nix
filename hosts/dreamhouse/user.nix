@@ -51,8 +51,6 @@ in
       presence
 
       pavucontrol
-
-      fonts
     ];
   };
 
