@@ -17,8 +17,6 @@
       xdotool
       xorg.xwininfo
       unixtools.xxd
-
-      unstable.grapejuice
     ];
   };
 

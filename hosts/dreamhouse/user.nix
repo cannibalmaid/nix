@@ -38,7 +38,6 @@ in
     homeDirectory = "/home/ammy";
 
     packages = with pkgs; [
-      unstable.librewolf
       webcord-vencord
       unstable.wezterm
       vscodium

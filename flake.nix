@@ -35,10 +35,15 @@
     };
 
     neovim-flake = {
-    url = "github:notashelf/neovim-flake";
-    # you can override input nixpkgs
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+      url = "github:notashelf/neovim-flake";
+      # you can override input nixpkgs
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    firefox-cascade = {
+      url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
   };
 
   outputs =
@@ -99,7 +104,7 @@
           ];
         };
 
-      ken = lib.nixosSystem {
+        ken = lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts/ken/system.nix
