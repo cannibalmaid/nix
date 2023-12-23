@@ -1,11 +1,7 @@
-{ inputs
-, config
-, pkgs
-, home-manager
-, lib
-, ...
-}: {
+{ inputs, config, pkgs, home-manager, lib, ... }: {
+
   home-manager.users.ammy = {
+
     home.packages = with pkgs; [
       seatd
       jaq
@@ -14,7 +10,7 @@
       wofi
       gnome.nautilus
       swww
-      unstable.eww-wayland
+      eww-wayland
       socat
       jq
       procps
@@ -50,7 +46,6 @@
   };
 
   environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     WLR_DRM_NO_ATOMIC = "1";
   };

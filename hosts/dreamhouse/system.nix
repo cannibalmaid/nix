@@ -3,12 +3,12 @@
 , config
 , pkgs
 , lib
+, jovian-nixos
 , ...
 }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/grub
-    ../../modules/nixos/nvidia
     ../../modules/nixos/persistence
     ../../modules/nixos/fonts
     ../../modules/nixos/networking
@@ -44,14 +44,27 @@
 
     lowLatency = {
       # enable this module
-      enable = true;
+      enable = false;
     };
   };
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 443 27036 ];
+    allowedUDPPortRanges = [
+      { from = 27031; to = 27036; }
+      { from = 8000; to = 8010; }
+    ];
+  };
+
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;
 
   services.openssh.enable = true;
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
 
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
   # ▒██    ▒ ▒██  ██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██▒▀█▀ ██▒   ▓██░  ██▒▒████▄    ▒██▀ ▀█   ██▄█▒▒████▄     ██▒ ▀█▒▓█   ▀ ▒██    ▒
@@ -71,14 +84,40 @@
     neofetch
     btop
 
-    unstable.spotify
+    spotify
 
-    unstable.easyeffects
+    easyeffects
 
-    unstable.wineWowPackages.staging
+    wineWowPackages.staging
 
     nixpkgs-fmt
     nvd
+    file
+  ];
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+
+  hardware.opengl.extraPackages = with pkgs; [
+    amdvlk
+  ];
+
+  # For 32 bit applications 
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+
+
+  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+    elisa
+    gwenview
+    okular
+    oxygen
+    khelpcenter
+    konsole
+    plasma-browser-integration
+    print-manager
   ];
 
   programs.dconf.enable = true;
@@ -98,8 +137,9 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.kodi.enable = true;
-  services.xserver.desktopManager.gnome.enable = false;
+  #services.xserver.desktopManager.kodi.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
 
   services.xserver.excludePackages = [ pkgs.xterm ];
 
@@ -126,7 +166,7 @@
     overlays = [
       outputs.overlays.additions
       outputs.overlays.modifications
-      outputs.overlays.unstable-packages
+      outputs.overlays.stable-packages
     ];
     # Configure your nixpkgs instance
     config = {
@@ -135,6 +175,7 @@
       permittedInsecurePackages = [
         "electron-11.5.0"
         "electron-13.6.9"
+        "electron-24.8.6"
       ];
     };
   };

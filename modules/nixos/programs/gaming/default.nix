@@ -9,10 +9,10 @@
     home.packages = with pkgs; [
       heroic
       itch
-      unstable.lutris
-      unstable.protonup-qt
+      lutris
+      protonup-qt
 
-      unstable.steamtinkerlaunch
+      steamtinkerlaunch
       unzip
       xdotool
       xorg.xwininfo
@@ -28,7 +28,6 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
 
 

@@ -1,86 +1,76 @@
-{ config, lib, pkgs, ... }:
-
-{
+{ config
+, lib
+, pkgs
+, ...
+}: {
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.supportedFilesystems = [ "btrfs" ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=root" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=home" "compress=zstd" "noatime" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=persist" "compress=zstd" "noatime" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/persist" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/var/log" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=log" "compress=zstd" "noatime" ];
+    neededForBoot = true;
+  };
 
-  fileSystems."/var/log" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=log" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/AA63-0E13";
+    fsType = "vfat";
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/AA63-0E13";
-      fsType = "vfat";
-    };
+  fileSystems."/swap" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=swap" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/swap" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=swap" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/games" = {
+    device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
+    fsType = "btrfs";
+    options = [ "subvol=games" "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/games" =
-    {
-      device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";
-      fsType = "btrfs";
-      options = [ "subvol=games" "compress=zstd" "noatime" ];
-    };
+  fileSystems."/games/launchers/nvme" = {
+    device = "/dev/disk/by-uuid/51fb66dc-aeea-403d-80ee-23df56049d30";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" ];
+  };
 
-  fileSystems."/games/launchers/nvme" =
-    {
-      device = "/dev/disk/by-uuid/51fb66dc-aeea-403d-80ee-23df56049d30";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" ];
-    };
-
-  fileSystems."/games/launchers/ssd" =
-    {
-      device = "/dev/disk/by-uuid/90866b4c-23ab-4d39-8f12-2d86829d0090";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" ];
-    };
-
+  fileSystems."/games/launchers/ssd" = {
+    device = "/dev/disk/by-uuid/90866b4c-23ab-4d39-8f12-2d86829d0090";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" ];
+  };
 
   # fileSystems."/games/launchers/hhd" =
   #   {
@@ -89,11 +79,12 @@
   #     options = [ "compress=zstd" "noatime" ];
   #   };
 
-
-  swapDevices = [{
-    device = "/swap/swapfile";
-    size = 16 * 1024;
-  }];
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -106,6 +97,4 @@
     # for SSD/NVME
     fstrim.enable = true;
   };
-
 }
-

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PIC="$(find ~/Nextcloud/Pictures/Wallpapers\ 👛/ -type f | shuf --random-source=/dev/urandom -n 1)"
+PIC="$(find /home/ammy/.config/home-manager/files/wallpapers -type f | shuf --random-source=/dev/urandom -n 1)"
 
 swww img --transition-type wipe --transition-angle 30 --transition-step 90 "$PIC"
 dunstify -u low -a Wallpaper -i "$PIC" "Changed wallpaper" "$PIC"

@@ -18,6 +18,7 @@
 
   boot.loader.grub = {
     enable = true;
+    theme = pkgs.sleek-grub-theme;
     copyKernels = true;
     efiInstallAsRemovable = true;
     efiSupport = true;
@@ -30,4 +31,5 @@
       		}
       		'';
   };
+
 }

@@ -27,10 +27,17 @@
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
-  unstable-packages = final: _prev: {
-    unstable = import inputs.nixpkgs-unstable {
+  stable-packages = final: _prev: {
+    stable = import inputs.nixpkgs-stable {
       system = final.system;
       config.allowUnfree = true;
+      allowUnfreePredicate = _: true;
+      permittedInsecurePackages = [
+        "electron-11.5.0"
+        "electron-13.6.9"
+        "electron-24.8.6"
+      ];
+
     };
   };
 }

@@ -29,17 +29,13 @@ in
       Install.WantedBy = [ "timers.target" ];
     };
 
-
     systemd.user.services = {
       swww-random = {
         Unit = {
           Description = "Wayland wallpaper";
         };
 
-        #Install.WantedBy = [ "hyprland-session.target" ];
-
         Service = {
-          #  ExecStart = ''${pkgs.swww}/bin/swww img "/home/ammy/.config/home-manager/files/wallpapers/pink.png"'';
           ExecStart = ''
             ${pkgs.bash}/bin/bash -c '${pkgs.swww}/bin/swww img "$(${pkgs.findutils}/bin/find "/home/ammy/.config/home-manager/files/wallpapers" -type f | ${pkgs.coreutils}/bin/shuf -n 1)"'
           '';
