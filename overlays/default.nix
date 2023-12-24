@@ -13,16 +13,6 @@
         libgdiplus
       ]);
     });
-
-    discord-canary = prev.discord-canary.override {
-      withOpenASAR = true;
-      withVencord = true;
-
-    };
-
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
@@ -37,7 +27,15 @@
         "electron-13.6.9"
         "electron-24.8.6"
       ];
-
     };
   };
+
+  cherry-mesa = final: _prev: {
+    cherry-mesa = import inputs.mesa {
+      system = final.system;
+      config.allowUnfree = true;
+      allowUnfreePredicate = _: true;
+    };
+  };
+
 }

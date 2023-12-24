@@ -8,7 +8,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.supportedFilesystems = [ "btrfs" ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/040d115e-4dbd-4768-bb05-f9409cc213fa";

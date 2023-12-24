@@ -12,7 +12,7 @@ buildNpmPackage {
   src = fetchFromGitHub {
     owner = "cannibalmaid";
     repo = "arRPC";
-    rev = "5c6d45d056bee55bb07927c70a81c9ba958601de";
+    rev = "cba505cb34195c99c20de31a234b9b72c7a3ebf2";
     hash = "sha256-gnHSje6YUUrw75XKkVx4T0Rc1ynnx4nUbcjvxBP3qFE=";
   };
 

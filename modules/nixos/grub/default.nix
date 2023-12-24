@@ -24,6 +24,7 @@
     efiSupport = true;
     fsIdentifier = "uuid";
     splashMode = "stretch";
+    useOSProber = true;
     device = "nodev";
     extraEntries = ''
       		menuentry "Reboot" {
