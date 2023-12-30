@@ -7,13 +7,13 @@
 }:
 buildNpmPackage {
   pname = "arRPC";
-  version = "3.1.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "cannibalmaid";
     repo = "arRPC";
-    rev = "cba505cb34195c99c20de31a234b9b72c7a3ebf2";
-    hash = "sha256-gnHSje6YUUrw75XKkVx4T0Rc1ynnx4nUbcjvxBP3qFE=";
+    rev = "08e12f77a9a2399eec2a7b45c4312f806b4f513c";
+    hash = "sha256-8CoKOlWtoI2cHv2qw2MlAlVJ92czUW2bZDVpY1/Pmb4=";
   };
 
   dontNpmBuild = true;

@@ -13,6 +13,14 @@
         libgdiplus
       ]);
     });
+
+    cartridges = prev.cartridges.overrideAttrs
+      (old: rec {
+        version = "2.7.1";
+        src = prev.fetchFromGitHub rec {
+          hash = "sha256-y3qh2YcyXndRhERdW0ADiGdJo03Y/zNUYa+2bydJL+I=";
+        };
+      });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

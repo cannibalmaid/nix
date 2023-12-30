@@ -6,29 +6,13 @@
 , spicetify-nix
 , neovim-flake
 , ...
-}:
-let
-  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
-  htms = pkgs.fetchFromGitHub {
-    owner = "calops";
-    repo = "hmts.nvim";
-    rev = "v0.1.0";
-    hash = "sha256-SBNTtuzwSmGgwALD/JqLwXGLow+Prn7dJrQNODPeOAY=";
-  };
-
-  regexplainer = pkgs.fetchFromGitHub {
-    owner = "bennypowers";
-    repo = "nvim-regexplainer";
-    rev = "4250c8f3c1307876384e70eeedde5149249e154f";
-    hash = "sha256-15DLbKtOgUPq4DcF71jFYu31faDn52k3P1x47GL3+b0=";
-  };
-in
-{
+}: {
   imports = [
     outputs.homeManagerModules.presence
     outputs.homeManagerModules.arrpc
     outputs.homeManagerModules.swww
     outputs.homeManagerModules.swww-random
+    outputs.homeManagerModules.spicetify
 
     inputs.spicetify-nix.homeManagerModule
     inputs.neovim-flake.homeManagerModules.default
@@ -50,33 +34,19 @@ in
       gnome.file-roller
       rar
       presence
-      foot
 
       pavucontrol
-      xwaylandvideobridge
-      discord-canary
 
       stremio
 
       vulkan-tools
       glxinfo
 
-      cherry-mesa.mesa
+
+      krita
+      cartridges
     ];
   };
-
-
-
-  #  programs.spicetify = {
-  #    enable = true;
-  #    theme = spicePkgs.themes.catppuccin-mocha;
-  #    colorScheme = "flamingo";
-
-  #    enabledExtensions = with spicePkgs.extensions; [
-  #      fullAppDisplay
-  #      shuffle # shuffle+ (special characters are sanitized out of ext names)
-  #    ];
-  #  };
 
   programs.neovim-flake = {
     enable = true;

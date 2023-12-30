@@ -3,7 +3,7 @@
 , config
 , pkgs
 , lib
-, jovian-nixos
+, jovian
 , ...
 }: {
   imports = [
@@ -66,6 +66,7 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
 
+
   #  ██████▓██   ██▓  ██████ ▄▄▄█████▓▓█████  ███▄ ▄███▓    ██▓███   ▄▄▄       ▄████▄   ██ ▄█▀▄▄▄        ▄████ ▓█████   ██████
   # ▒██    ▒ ▒██  ██▒▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██▒▀█▀ ██▒   ▓██░  ██▒▒████▄    ▒██▀ ▀█   ██▄█▒▒████▄     ██▒ ▀█▒▓█   ▀ ▒██    ▒
   # ░ ▓██▄    ▒██ ██░░ ▓██▄   ▒ ▓██░ ▒░▒███   ▓██    ▓██░   ▓██░ ██▓▒▒██  ▀█▄  ▒▓█    ▄ ▓███▄░▒██  ▀█▄  ▒██░▄▄▄░▒███   ░ ▓██▄
@@ -102,28 +103,17 @@
   hardware.opengl.extraPackages = with pkgs; [
     amdvlk
     rocmPackages.clr.icd
-
   ];
 
   # For 32 bit applications 
   hardware.opengl.extraPackages32 = with pkgs; [
     driversi686Linux.amdvlk
   ];
+  #hardware.opengl.package = pkgs.cherry-mesa.mesa.drivers;
+  #hardware.opengl.package32 = pkgs.cherry-mesa.mesa.drivers;
 
   hardware.opengl.driSupport = true; # This is already enabled by default
   hardware.opengl.driSupport32Bit = true; # For 32 bit applications
-
-
-  environment.plasma5.excludePackages = with pkgs.libsForQt5; [
-    elisa
-    gwenview
-    okular
-    oxygen
-    khelpcenter
-    konsole
-    plasma-browser-integration
-    print-manager
-  ];
 
   programs.dconf.enable = true;
 
