@@ -41,7 +41,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = lib.mkDefault [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   environment.sessionVariables = {
