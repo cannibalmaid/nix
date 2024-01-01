@@ -4,7 +4,6 @@
 { pkgs ? (import ../nixpkgs.nix) { } }: {
   presence = pkgs.callPackage ./presence { };
   arrpc = pkgs.callPackage ./arrpc { };
-  grapejuice = pkgs.callPackage ./grapejuice { };
   xwaylandvideobridge = pkgs.libsForQt5.callPackage ./xwaylandvideobridge { };
   obinskit = pkgs.callPackage ./obinskit { };
   customfonts = pkgs.callPackage ./customfonts { };

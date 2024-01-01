@@ -3,7 +3,6 @@
 , lib
 , config
 , pkgs
-, spicetify-nix
 , neovim-flake
 , ...
 }: {
@@ -13,11 +12,9 @@
     outputs.homeManagerModules.swww
     outputs.homeManagerModules.swww-random
     outputs.homeManagerModules.spicetify
-
-    inputs.spicetify-nix.homeManagerModule
-    inputs.neovim-flake.homeManagerModules.default
-
     outputs.homeManagerModules.librewolf
+
+    inputs.neovim-flake.homeManagerModules.default
   ];
 
   home = {
@@ -44,7 +41,6 @@
 
 
       krita
-      cartridges
     ];
   };
 

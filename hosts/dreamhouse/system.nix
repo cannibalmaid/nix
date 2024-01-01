@@ -85,7 +85,7 @@
     neofetch
     btop
 
-    spotify
+    #spotify
 
     easyeffects
 
@@ -101,13 +101,7 @@
   ];
 
   hardware.opengl.extraPackages = with pkgs; [
-    amdvlk
     rocmPackages.clr.icd
-  ];
-
-  # For 32 bit applications 
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
   ];
   #hardware.opengl.package = pkgs.cherry-mesa.mesa.drivers;
   #hardware.opengl.package32 = pkgs.cherry-mesa.mesa.drivers;
@@ -209,5 +203,5 @@
   #       ░     ░  ░   ░           ░   ░      ░ ░           ░
   #      ░
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }

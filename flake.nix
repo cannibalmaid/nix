@@ -19,8 +19,9 @@
     neovim-flake = { url = "github:notashelf/neovim-flake"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-cascade = { url = "github:andreasgrafen/cascade"; flake = false; }; # github:rafaelmardojai/firefox-gnome-theme
   };
+
   outputs =
-    { self, nixpkgs, home-manager, hyprland, nixos-hardware, ... } @ inputs:
+    { self, nixpkgs, home-manager, hyprland, nixos-hardware, spicetify-nix, ... } @ inputs:
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // home-manager.lib;

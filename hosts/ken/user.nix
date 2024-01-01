@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, pkgs, spicetify-nix, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 
 {
   imports = [
